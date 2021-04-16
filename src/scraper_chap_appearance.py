@@ -22,7 +22,7 @@ def scrape_chap_appearances(df, start_chap = 1, end_chap =5000, continue_last = 
 
             for elem in table.find_all('li'):
                 # char_list.append(elem.text)
-                df = df.append({'Chapter': i, 'Appearance': elem.text}, ignore_index=True)
+                df = df.append({'Chapter': i, 'Character': elem.text}, ignore_index=True)
     return df
             # appearance_dict[i] = char_list
 
