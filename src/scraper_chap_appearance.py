@@ -2,11 +2,15 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 
-def scrape_chap_appearances(df, start_chap = 1, end_chap =5000, continue_last = True):
-    if continue_last:
-        curr_chapts = df['Chapter'].tolist()
-    else: curr_chapts = []
-    for i in range(start_chap, end_chap + 1):
+def scrape_chap_appearances(df = None, start_chap = 1, end_chap =5000, continue_last = True):
+    if df == None:
+        df = pd.DataFrame()
+        curr_chapts = []
+    else: 
+        if continue_last:
+            curr_chapts = df['Chapter'].tolist()
+        else: curr_chapts = []
+    for i in range(start_chap, end_chap):
         if i in curr_chapts:
             continue
         else:
@@ -22,7 +26,7 @@ def scrape_chap_appearances(df, start_chap = 1, end_chap =5000, continue_last = 
 
             for elem in table.find_all('li'):
                 # char_list.append(elem.text)
-                df = df.append({'Chapter': i, 'Character': elem.text}, ignore_index=True)
+                df = df.append({'Chapter': int(i), 'Character': elem.text}, ignore_index=True)
     return df
             # appearance_dict[i] = char_list
 

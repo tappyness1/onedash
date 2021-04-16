@@ -130,5 +130,5 @@ dmypy.json
 
 .vscode
 
-.csv
-.xlsx
+*.csv
+*.xlsx

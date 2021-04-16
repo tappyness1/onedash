@@ -34,7 +34,7 @@ def scrape_char_details(char_link_df, save_file_name):
                         char_det_dict[det] = [i.get("title") for i in table.find("div", {"data-source": det}).find("div").find_all("a")]
             df = df.append(char_det_dict, ignore_index=True)
         except:
-            print(char_link)
+            print(f'Unable to process: {char_link}')
             continue
     df.to_csv(save_file_name, index=False)
     # print (char_det_dict)

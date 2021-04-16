@@ -7,13 +7,22 @@ import plotly.express as px
 import seaborn as sns
 import matplotlib.pyplot as plt
 from src.arcs import generate_arc
+from configparser import ConfigParser, ExtendedInterpolation
 
-appearance_df = pd.read_csv("data/onedash_chap_appearance.csv")
+pl_config = ConfigParser(interpolation=ExtendedInterpolation())
+pl_config.read('cfg/cfg.ini')
+
+end_chap = pl_config['SCRAPER'].getint('end_chap') + 1
+char_link_fp = pl_config['SCRAPER'].get('char_link_fp')
+chap_appearance_fp = pl_config['SCRAPER'].get('chap_appearance_fp')
+char_details_fp = pl_config['SCRAPER'].get('char_details_fp')
+
+appearance_df = pd.read_csv(chap_appearance_fp)
 appearance_df['Chapter'] = appearance_df['Chapter'].ffill()
 # df['Arc Name'] = df['Arc Name'].ffill()
 all_dims = ['Chapter', 'Appearance', 'Arc', 'Character', 'Appearance Notes']
 # preprocess to add arc 
-arcs = generate_arc(1010 + 1)
+arcs = generate_arc(end_chap)
 appearance_df['Character'] = appearance_df['Appearance'].str.split("(",expand=True)[0]
 appearance_df['Appearance Notes'] = appearance_df['Appearance'].str.split("(",expand=True)[1]
 appearance_df['Appearance Notes'] = appearance_df['Appearance Notes'].str.replace(")", "", regex = True)

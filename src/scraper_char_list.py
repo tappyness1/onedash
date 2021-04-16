@@ -6,7 +6,7 @@ def scrape_char_links(char_dict, start_chap = 1, end_chap =5000, continue_last =
     # if continue_last:
     #     curr_chapts = df['Chapter'].tolist()
     # else: curr_chapts = []
-    for i in range(start_chap, end_chap + 1):
+    for i in range(start_chap, end_chap):
         # if i in curr_chapts:
         #     continue
         # else:
@@ -30,11 +30,3 @@ def scrape_char_links(char_dict, start_chap = 1, end_chap =5000, continue_last =
             except :
                 continue
     return char_dict
-
-if __name__ == '__main__':
-    char_dict = {}
-    update_char_dict = scrape_char_links(char_dict, end_chap = 1006)
-    df = pd.DataFrame.from_dict(char_dict, orient = 'index',columns=['Link'])
-    df = df.reset_index()
-    df.to_csv("char_link.csv")
-    
