@@ -6,3 +6,8 @@ dependencies:
   - pip=20.2.3
   - pandas
   - matplotlib
+  - nodejs
+  - flask
+  - plotly
+  - pip:
+    - numpy

@@ -18,13 +18,15 @@ chap_appearance_fp = pl_config['SCRAPER'].get('chap_appearance_fp')
 char_details_fp = pl_config['SCRAPER'].get('char_details_fp')
 
 appearance_df = pd.read_csv(chap_appearance_fp)
-appearance_df['Chapter'] = appearance_df['Chapter'].ffill()
+# appearance_df['Chapter'] = appearance_df['Chapter'].ffill()
 # df['Arc Name'] = df['Arc Name'].ffill()
 all_dims = ['Chapter', 'Appearance', 'Arc', 'Character', 'Appearance Notes']
 # preprocess to add arc 
 arcs = generate_arc(end_chap)
-appearance_df['Character'] = appearance_df['Appearance'].str.split("(",expand=True)[0]
-appearance_df['Appearance Notes'] = appearance_df['Appearance'].str.split("(",expand=True)[1]
+# print(arcs)
+# appearance_df['Character'] = appearance_df['Appearance'].str.split((",expand=True)[0]
+appearance_df['Appearance'] = appearance_df['Character'].str.split("(",expand=True)[0]
+appearance_df['Appearance Notes'] = appearance_df['Character'].str.split("(",expand=True)[1]
 appearance_df['Appearance Notes'] = appearance_df['Appearance Notes'].str.replace(")", "", regex = True)
 def arc_col(row):
     for key in arcs:
@@ -32,10 +34,11 @@ def arc_col(row):
             return key
     return "None"
 appearance_df['Arc'] = appearance_df.apply(arc_col, axis =1) 
+
 # print (appearance_df.head())
 
 # fig_char = px.histogram(appearance_df, x='Chapter', barmode='group')
-fig_char = px.histogram(appearance_df, x='Character', color = 'Arc', barmode='group')
+fig_char = px.histogram(appearance_df, x='Appearance', color = 'Arc', barmode='group')
 
 # fig_ability = px.histogram(df_abilities, x='Arc Name', color="Ability Name", barmode='group')
 
