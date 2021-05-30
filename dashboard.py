@@ -6,7 +6,7 @@ from dash.dependencies import Input, Output
 import plotly.express as px
 # import seaborn as sns
 # import matplotlib.pyplot as plt
-from src.arcs import generate_arc
+from arcs import generate_arc
 from configparser import ConfigParser, ExtendedInterpolation
 
 pl_config = ConfigParser(interpolation=ExtendedInterpolation())
