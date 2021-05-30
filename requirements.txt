@@ -1,38 +1,13 @@
-Brotli==1.0.9
-certifi==2020.12.5
-click==7.1.2
-cycler==0.10.0
 dash==1.19.0
 dash-core-components==1.15.0
 dash-html-components==1.1.2
 dash-renderer==1.9.0
 dash-table==4.11.2
-et-xmlfile==1.0.1
 Flask==1.1.2
 Flask-Compress==1.9.0
-future==0.18.2
 gunicorn==20.1.0
-itsdangerous==1.1.0
-jdcal==1.4.1
-Jinja2==2.11.3
-kiwisolver @ file:///C:/ci/kiwisolver_1612282555033/work
-MarkupSafe==1.1.1
-matplotlib @ file:///C:/ci/matplotlib-base_1607956546480/work
-mkl-fft==1.0.6
-mkl-random==1.0.2
-mkl-service==2.3.0
-numpy @ file:///C:/ci/numpy_and_numpy_base_1607448201973/work
-olefile==0.46
-openpyxl==3.0.6
-pandas @ file:///C:/ci/pandas_1611178643726/work
-Pillow @ file:///C:/ci/pillow_1609768760317/work
+matplotlib==3.3.2
+numpy==1.19.2
+pandas==1.2.1
 plotly==4.14.3
-pyparsing @ file:///home/linux1/recipes/ci/pyparsing_1610983426697/work
-python-dateutil @ file:///home/ktietz/src/ci/python-dateutil_1611928101742/work
-pytz @ file:///tmp/build/80754af9/pytz_1612215392582/work
-retrying==1.3.3
-sip==4.19.13
-six @ file:///C:/ci/six_1605205404068/work
-tornado @ file:///C:/ci/tornado_1606924294691/work
-Werkzeug==1.0.1
-wincertstore==0.2
+
