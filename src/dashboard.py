@@ -43,6 +43,7 @@ fig_char = px.histogram(appearance_df, x='Appearance', color = 'Arc', barmode='g
 # fig_ability = px.histogram(df_abilities, x='Arc Name', color="Ability Name", barmode='group')
 
 app = dash.Dash(__name__)
+server = app.server
 
 app.layout = html.Div(
     children = [
