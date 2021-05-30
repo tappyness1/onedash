@@ -4,8 +4,8 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 import plotly.express as px
-import seaborn as sns
-import matplotlib.pyplot as plt
+# import seaborn as sns
+# import matplotlib.pyplot as plt
 from src.arcs import generate_arc
 from configparser import ConfigParser, ExtendedInterpolation
 
