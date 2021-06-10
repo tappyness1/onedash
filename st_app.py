@@ -52,62 +52,57 @@ char_details_df['main_crew'] = char_details_df['affiliation'].apply(get_main_cre
 df_age_bounty = char_details_df.dropna(subset=['latest_age', 'last_bounty'])
 df_age_bounty['latest_age'] = df_age_bounty['latest_age'].astype('int')
 
-@st.cache(suppress_st_warning=True)
-def main():
-    # Select Plot Option
-    st.sidebar.markdown("## Select Mode of Analysis")
-    char_appearance = st.sidebar.checkbox('Character Appearance by arc', value = True)  
-    latest_bounty = st.sidebar.checkbox('Latest Bounty', value = False)
-    latest_age_to_bounty = st.sidebar.checkbox('Latest Bounty by age', value = False)
-    age_to_bounty_by_crew = st.sidebar.checkbox('Latest Bounty grouped by crew', value = False)
+# Select Plot Option
+st.sidebar.markdown("## Select Mode of Analysis")
+char_appearance = st.sidebar.checkbox('Character Appearance by arc', value = True)  
+latest_bounty = st.sidebar.checkbox('Latest Bounty', value = False)
+latest_age_to_bounty = st.sidebar.checkbox('Latest Bounty by age', value = False)
+age_to_bounty_by_crew = st.sidebar.checkbox('Latest Bounty grouped by crew', value = False)
 
-    fig_app_by_arc = px.histogram(appearance_df, 
-                                x='Appearance', 
-                                color = 'Arc', 
-                                barmode='group',
-                                labels={
-                                    "Appearance": "Name",
-                                    "counts": "Counts"
-                                },
-                                title="Count of Character Appearance by Arc")
+fig_app_by_arc = px.histogram(appearance_df, 
+                            x='Appearance', 
+                            color = 'Arc', 
+                            barmode='group',
+                            labels={
+                                "Appearance": "Name",
+                                "counts": "Counts"
+                            },
+                            title="Count of Character Appearance by Arc")
 
-    fig_latest_bounty = px.histogram(char_details_df, 
-                                    x="last_bounty", 
-                                    nbins =  00, 
-                                    title="Bounty histogram")
-    fig_latest_age_to_bounty = px.scatter(x = df_age_bounty['latest_age'], 
-                                        y=df_age_bounty['last_bounty'], 
-                                        color = df_age_bounty['Name'],
-                                        labels={
-                                            "latest_age": "Age",
-                                            "last_bounty": "Latest Bounty",
-                                            "Name": "Name"
-                                            },
-                                        title = "Bounty by Age")
-    fig_latest_age_to_bounty.update_xaxes(tickangle=0)
+fig_latest_bounty = px.histogram(char_details_df, 
+                                x="last_bounty", 
+                                nbins =  00, 
+                                title="Bounty histogram")
+fig_latest_age_to_bounty = px.scatter(x = df_age_bounty['latest_age'], 
+                                    y=df_age_bounty['last_bounty'], 
+                                    color = df_age_bounty['Name'],
+                                    labels={
+                                        "latest_age": "Age",
+                                        "last_bounty": "Latest Bounty",
+                                        "Name": "Name"
+                                        },
+                                    title = "Bounty by Age")
+fig_latest_age_to_bounty.update_xaxes(tickangle=0)
 
-    fig_age_to_bounty_by_crew = px.scatter(x = df_age_bounty['latest_age'], 
-                                        y=df_age_bounty['last_bounty'], 
-                                        color = df_age_bounty['main_crew'],
-                                        labels={
-                                            "latest_age": "Age",
-                                            "last_bounty": "Latest Bounty",
-                                            "main_crew": "Crew"
-                                            },
-                                        title = "Bounty by Age grouped by Crew")
-    fig_age_to_bounty_by_crew.update_xaxes(tickangle=0)
+fig_age_to_bounty_by_crew = px.scatter(x = df_age_bounty['latest_age'], 
+                                    y=df_age_bounty['last_bounty'], 
+                                    color = df_age_bounty['main_crew'],
+                                    labels={
+                                        "latest_age": "Age",
+                                        "last_bounty": "Latest Bounty",
+                                        "main_crew": "Crew"
+                                        },
+                                    title = "Bounty by Age grouped by Crew")
+fig_age_to_bounty_by_crew.update_xaxes(tickangle=0)
 
-    if char_appearance:
-        st.plotly_chart(fig_app_by_arc)
+if char_appearance:
+    st.plotly_chart(fig_app_by_arc)
 
-    if latest_bounty:
-        st.plotly_chart(fig_latest_bounty)
+if latest_bounty:
+    st.plotly_chart(fig_latest_bounty)
 
-    if latest_age_to_bounty:
-        st.plotly_chart(fig_latest_age_to_bounty)
+if latest_age_to_bounty:
+    st.plotly_chart(fig_latest_age_to_bounty)
 
-    if age_to_bounty_by_crew:
-        st.plotly_chart(fig_age_to_bounty_by_crew)
-
-if __name__ == "__main__":
-    main()
+if age_to_bounty_by_crew:
+    st.plotly_chart(fig_age_to_bounty_by_crew)
