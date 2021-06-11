@@ -21,39 +21,14 @@ end_chap = pl_config['SCRAPER'].getint('end_chap') + 1
 char_link_fp = pl_config['SCRAPER'].get('char_link_fp')
 chap_appearance_fp = pl_config['SCRAPER'].get('chap_appearance_fp')
 char_details_fp = pl_config['SCRAPER'].get('char_details_fp')
+age_bounty_fp = pl_config['SCRAPER'].get('age_bounty_fp')
 
 appearance_df = pd.read_csv(chap_appearance_fp)
-# appearance_df['Chapter'] = appearance_df['Chapter'].ffill()
-# df['Arc Name'] = df['Arc Name'].ffill()
+char_details_df = pd.read_csv(char_details_fp)
+df_age_bounty = pd.read_csv(age_bounty_fp)
+
 all_dims = ['Chapter', 'Appearance', 'Arc', 'Character', 'Appearance Notes']
 
-# preprocess to add arc 
-arcs = generate_arc(end_chap)
-
-def arc_col(row):
-    """function to generate arc per row for appearance df
-    """
-    for key in arcs:
-        if row['Chapter'] in arcs[key]:
-            return key
-    return "None"
-
-appearance_df['Appearance'] = appearance_df['Character'].str.split("(",expand=True)[0]
-appearance_df['Appearance Notes'] = appearance_df['Character'].str.split("(",expand=True)[1]
-appearance_df['Appearance Notes'] = appearance_df['Appearance Notes'].str.replace(")", "", regex = True)
-appearance_df['Arc'] = appearance_df.apply(arc_col, axis =1) 
-
-char_details_df = pd.read_csv(char_details_fp)
-char_details_df['last_bounty'] = char_details_df['bounty'].apply(get_last_known_bounty)
-char_details_df['latest_age'] = char_details_df['age'].apply(get_latest_age)
-char_details_df['latest_age']= char_details_df['latest_age'].fillna(value=np.nan)
-char_details_df['main_crew'] = char_details_df['affiliation'].apply(get_main_crew)
-df_age_bounty = char_details_df.dropna(subset=['latest_age', 'last_bounty'])
-df_age_bounty['latest_age'] = df_age_bounty['latest_age'].astype('int')
-
-# print (appearance_df.head())
-
-# fig_char = px.histogram(appearance_df, x='Chapter', barmode='group')
 fig_app_by_arc = px.histogram(appearance_df, 
                               x='Appearance', 
                               color = 'Arc', 
