@@ -29,12 +29,13 @@ st. set_page_config(layout="wide")
 
 # Select Plot Option
 st.sidebar.markdown("## Select Mode of Analysis")
-char_appearance = st.sidebar.checkbox('Character Appearance by arc', value = True)  
+char_appearance = st.sidebar.checkbox('Top 20 Character Appearance by arc', value = True)
+char_appearance_sunburst = st.sidebar.checkbox('Top 10 Character Appearance by arc (Sunburst)', value = True)
 latest_bounty = st.sidebar.checkbox('Latest Bounty', value = False)
 latest_age_to_bounty = st.sidebar.checkbox('Latest Bounty by age', value = False)
 age_to_bounty_by_crew = st.sidebar.checkbox('Latest Bounty grouped by crew', value = False)
 
-fig_app_by_arc = px.histogram(appearance_df, 
+fig_app_by_arc = px.histogram(appearance_df[appearance_df['Appearance'].isin(appearance_df['Appearance'].value_counts().head(20).index.tolist())], 
                             x='Appearance', 
                             color = 'Arc', 
                             barmode='group',
@@ -43,6 +44,10 @@ fig_app_by_arc = px.histogram(appearance_df,
                                 "counts": "Counts"
                             },
                             title="Count of Character Appearance by Arc")
+
+fig_app_by_arc_sunburst = px.sunburst(appearance_df[appearance_df['Appearance'].isin(appearance_df['Appearance'].value_counts().head(10).index.tolist())], 
+                             path = ['Appearance', 'Arc'],
+                             title="Count of Character Appearance by Arc")
 
 fig_latest_bounty = px.histogram(char_details_df, 
                                 x="last_bounty", 
@@ -72,6 +77,9 @@ fig_age_to_bounty_by_crew.update_xaxes(tickangle=0)
 
 if char_appearance:
     st.plotly_chart(fig_app_by_arc,use_container_width=True)
+
+if char_appearance_sunburst:
+    st.plotly_chart(fig_app_by_arc_sunburst,use_container_width=True)
 
 if latest_bounty:
     st.plotly_chart(fig_latest_bounty,use_container_width=True)

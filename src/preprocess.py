@@ -86,9 +86,9 @@ class cleaner:
         df_age_bounty = char_details_df.dropna(subset=['latest_age', 'last_bounty'])
         df_age_bounty['latest_age'] = df_age_bounty['latest_age'].astype('int')
 
-        appearance_df.to_csv(self.chap_appearance_fp)
-        char_details_df.to_csv(self.char_details_fp)
-        df_age_bounty.to_csv(self.age_bounty_fp)
+        appearance_df.to_csv(self.chap_appearance_fp, index = False)
+        char_details_df.to_csv(self.char_details_fp, index = False)
+        df_age_bounty.to_csv(self.age_bounty_fp, index = False)
 
 if __name__ == '__main__':
     cleaner = cleaner()
