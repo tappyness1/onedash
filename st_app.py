@@ -25,7 +25,8 @@ appearance_df = pd.read_csv(chap_appearance_fp)
 char_details_df = pd.read_csv(char_details_fp)
 df_age_bounty = pd.read_csv(age_bounty_fp)
 
-st.set_page_config(layout="wide")
+st.set_page_config(page_title='One Dash', layout = 'wide', initial_sidebar_state = 'auto')
+# st.set_page_config(layout="wide")
 height = 650
 
 # Select Plot Option
