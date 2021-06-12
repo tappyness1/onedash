@@ -29,6 +29,13 @@ st.set_page_config(page_title='One Dash', layout = 'wide', initial_sidebar_state
 # st.set_page_config(layout="wide")
 height = 650
 
+st.markdown(""" <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            </style> """, 
+            unsafe_allow_html=True
+            )
+
 # Select Plot Option
 st.sidebar.markdown("## Character Appearance in each chapter")
 char_appearance = st.sidebar.checkbox('Top 20 Character Appearance', value = True)
