@@ -4,7 +4,9 @@ HERE >>>https://one-dash.herokuapp.com/<<<
 
 For scraping - 
 
-> python -m src.main
+`
+python -m src.main
+`
 
 This will start the scraping for the following:
 
@@ -16,17 +18,26 @@ These will be scraped all the way to the end chapter as set in the cfg file.
 
 Run preprocessing -
 
-> python -m src.preprocess
+`
+python -m src.preprocess
+`
 
 For dashboard - 
 
 For dash (flask) app
-> python -m src.dashboard
+`
+python -m dashboard
+`
 
 For streamlit 
-> streamlit run st_app.py
+
+`
+streamlit run st_app.py
+`
 
 For deploying to heroku app 
 
+```
 heroku plugins:install heroku-builds
 heroku builds:create -a one-dash
+```

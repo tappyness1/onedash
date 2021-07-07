@@ -58,9 +58,12 @@ def fig_app_by_arc_sunburst(appearance_df):
 
 @st.cache(suppress_st_warning=True)
 def fig_latest_bounty(char_details_df, height):
-    fig_latest_bounty = px.bar(char_details_df[char_details_df['last_bounty'] > 0].head(50), 
+    df = char_details_df[char_details_df['last_bounty'] > 0]
+    df = df.sort_values(by = "last_bounty", ascending = False)
+    fig_latest_bounty = px.bar(df.head(50), 
                             x = 'Name', 
                             y = 'last_bounty', 
+                            width = 1000,
                             height = height, 
                             log_y = True)
     fig_latest_bounty.update_layout(
@@ -72,9 +75,11 @@ def fig_latest_bounty(char_details_df, height):
 
 @st.cache(suppress_st_warning=True)
 def fig_latest_bounty_dist(char_details_df, height):
-    fig_latest_bounty_dist = px.histogram(char_details_df, 
+    group_df = char_details_df[['main_crew','last_bounty']]
+    group_df = group_df.groupby(['main_crew']).sum()
+    group_df = group_df.sort_values(by= 'last_bounty', ascending=False)
+    fig_latest_bounty_dist = px.bar(group_df.head(20), 
                                     x="last_bounty", 
-                                    nbins =  00,
                                     height = height)
 
     fig_latest_bounty_dist.update_layout(
@@ -157,7 +162,7 @@ def main():
         st.plotly_chart(fig_latest_bounty(char_details_df, height),use_container_width=True)
 
     if latest_bounty:
-        st.write("## Bounty histogram")
+        st.write("## Top 50 Crews by Bounty")
         st.plotly_chart(fig_latest_bounty_dist(char_details_df, height),use_container_width=True)
 
     if latest_age_to_bounty:
