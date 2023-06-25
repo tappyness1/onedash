@@ -1,0 +1,33 @@
+name: Upload To HF
+on:
+  push
+  workflow_dispatch:
+  
+jobs:
+  get-counts:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Set Timezone
+        uses: szenius/set-timezone@v1.0
+        with:
+          timezoneLinux: "Asia/Singapore"
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+      - name: Add conda to system path
+        run: |
+          # $CONDA is an environment variable pointing to the root of the miniconda directory
+          echo $CONDA/bin >> $GITHUB_PATH
+      - name: Install requirements
+        run: |
+          # $CONDA is an environment variable pointing to the root of the miniconda directory
+          conda env update --file huggingface_env.yml --name base
+      - name: Upload to HuggingFace
+        env: 
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          python -m src.upload_to_hf
