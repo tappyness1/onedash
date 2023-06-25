@@ -1,13 +1,12 @@
-channels:
-  - defaults
-  - conda-forge
 dependencies:
-  - python>=3.6.7
-  - pip=20.2.3
-  - pandas
-  - matplotlib
-  - nodejs
-  - flask
-  - plotly
+  - python==3.8
+  - pip
   - pip:
-    - numpy
+    - huggingface_hub>= 0.12
+    - datasets>=2.8.0
+    - pandas==1.5.3
+    - plotly==5.13.0
+    - streamlit==1.18.1
+    - svgpath2mpl==1.0.0
+    - numpy == 1.24.2
+    - scipy == 1.9.1
