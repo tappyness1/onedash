@@ -22,14 +22,14 @@ age_bounty_fp = pl_config['SCRAPER'].get('age_bounty_fp')
 
 st.set_page_config(page_title='One Dash', layout = 'wide', initial_sidebar_state = 'auto')
 
-@st.cache(suppress_st_warning=True)
+@st.cache_data(suppress_st_warning=True)
 def generate_df():
     appearance_df = pd.read_csv(chap_appearance_fp)
     char_details_df = pd.read_csv(char_details_fp)
     df_age_bounty = pd.read_csv(age_bounty_fp)
     return appearance_df, char_details_df, df_age_bounty
 
-@st.cache(suppress_st_warning=True)
+@st.cache_data(suppress_st_warning=True)
 def fig_app_by_arc(appearance_df, height):
     fig_app_by_arc = px.histogram(appearance_df[appearance_df['Appearance'].isin(appearance_df['Appearance'].value_counts().head(20).index.tolist())], 
                                 x='Appearance', 
@@ -48,7 +48,7 @@ def fig_app_by_arc(appearance_df, height):
                                 )
     return fig_app_by_arc
 
-@st.cache(suppress_st_warning=True)
+@st.cache_data(suppress_st_warning=True)
 def fig_app_by_arc_sunburst(appearance_df):
     fig_app_by_arc_sunburst = px.sunburst(appearance_df[appearance_df['Appearance'].isin(appearance_df['Appearance'].value_counts().head(10).index.tolist())], 
                                 path = ['Appearance', 'Arc'],
@@ -56,7 +56,7 @@ def fig_app_by_arc_sunburst(appearance_df):
                                 height = 800)
     return fig_app_by_arc_sunburst
 
-@st.cache(suppress_st_warning=True)
+@st.cache_data(suppress_st_warning=True)
 def fig_latest_bounty(char_details_df, height):
     df = char_details_df[char_details_df['last_bounty'] > 0]
     df = df.sort_values(by = "last_bounty", ascending = False)
@@ -73,7 +73,7 @@ def fig_latest_bounty(char_details_df, height):
                                 )
     return fig_latest_bounty
 
-@st.cache(suppress_st_warning=True)
+@st.cache_data(suppress_st_warning=True)
 def fig_latest_bounty_dist(char_details_df, height):
     group_df = char_details_df[['main_crew','last_bounty']]
     group_df = group_df.groupby(['main_crew']).sum()
@@ -88,7 +88,7 @@ def fig_latest_bounty_dist(char_details_df, height):
                                 )
     return fig_latest_bounty_dist
 
-@st.cache(suppress_st_warning=True)
+@st.cache_data(suppress_st_warning=True)
 def fig_latest_age_to_bounty(df_age_bounty,height):
     fig_latest_age_to_bounty = px.scatter(x = df_age_bounty['latest_age'], 
                                         y=df_age_bounty['last_bounty'], 
@@ -106,7 +106,7 @@ def fig_latest_age_to_bounty(df_age_bounty,height):
                                             )
     return fig_latest_age_to_bounty
 
-@st.cache(suppress_st_warning=True)
+@st.cache_data(suppress_st_warning=True)
 def fig_age_to_bounty_by_crew(df_age_bounty, height):
     fig_age_to_bounty_by_crew = px.scatter(x = df_age_bounty['latest_age'], 
                                         y=df_age_bounty['last_bounty'], 

@@ -3,6 +3,4 @@ __pycache__/
 .vscode
 *.xlsx
 *.ipynb
-env.sh
 templates/
-secrets.yml

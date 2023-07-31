@@ -6,4 +6,4 @@ scraper:
   char_details: True
   char_details_fp : data/char_details.csv
   age_bounty_fp: data/age_bounty.csv
-  end_chap : 1010
+  end_chap : 1088
